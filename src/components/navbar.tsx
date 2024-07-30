@@ -23,12 +23,12 @@ export default function NavBar() {
   ]
 
   return (
-    <nav className='w-full h-24 items-center justify-between flex'>
-      <Link href='/' className='font-bold'>
+    <nav className='w-full py-6 sm:py-0 sm:h-24 sm:items-center justify-center gap-2 sm:justify-between flex flex-col sm:flex-row'>
+      <Link href='/' className='font-bold text-2xl'>
         Indie Hackers Brasil
       </Link>
 
-      <div className='flex'>
+      <div className='flex -mx-2'>
         {menuItems.map((item, index) => (
           <ItemMenu key={index} href={item.href}>
             {item.label}

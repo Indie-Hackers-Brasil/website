@@ -12,7 +12,7 @@ const projects = [
   {
     "titulo": "Poku",
     "site": "https://poku.io/",
-    "descricao": "Poku é um test runner open-source que facilita e agiliza os testes em Node.js, Bun, Deno, criado por @weslley_io."
+    "descricao": "Poku é um test runner open-source que facilita e agiliza os testes em Node.js, Bun e Deno, criado por @wellwelwel."
   },
   {
     "titulo": "Loja na Bio",

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import projects from '@/data/projects';
 
@@ -6,16 +6,30 @@ export default function Page() {
   return (
     <main className="flex flex-col gap-2">
       <h1 className="text-2xl font-bold">Projetos</h1>
-      <p className='text-neutral-600 dark:text-neutral-400' >Conheça os projetos de produtos digitais brasileiros.</p>
+      <p className="text-neutral-600 dark:text-neutral-400">
+        Conheça os projetos de produtos digitais brasileiros.
+      </p>
 
       <div className="space-y-4 py-4">
         {projects.map((project, index) => (
-          <a href={project.site} className="rounded-lg mt-2 block border border-neutral-200 group transition-all hover:scale-105 hover:border-violet-500 hover:shadow-md dark:border-neutral-800" target="_blank" key={index}>
+          <a
+            href={project.site}
+            className="group mt-2 block rounded-lg border border-neutral-200 transition-all hover:scale-105 hover:border-violet-500 hover:shadow-md dark:border-neutral-800"
+            target="_blank"
+            key={index}
+          >
             <div className="flex flex-col gap-2 p-4 shadow-sm">
               <div className="flex items-center gap-1">
                 <h2 className="text-xl font-semibold">{project.titulo}</h2>
 
-                <svg className="hidden group-hover:block text-violet-500" xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none">
+                <svg
+                  className="hidden text-violet-500 group-hover:block"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16px"
+                  height="16px"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
                   <g id="Interface / External_Link">
                     <path
                       id="Vector"

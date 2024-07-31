@@ -64,6 +64,12 @@ const projects = [
     site: 'https://humantrack.io/',
     descricao:
       'HumanTrack está construindo a próxima geração em monitoramento de saúde, melhorando a experiência tanto para profissionais de saúde quanto para pacientes.'
+  },
+  {
+    titulo: '5Devs',
+    site: 'https://5devs.com.br/',
+    descricao:
+      '5Devs é uma plataforma para geração de dados falsos para fins de testes, desenvolvido por @gustavo-fior.'
   }
 ];
 

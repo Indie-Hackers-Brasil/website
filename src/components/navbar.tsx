@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import c from 'clsx';
 import Link from 'next/link';
@@ -16,7 +16,7 @@ function ItemMenu({ children, href, active }: ItemMenuProps) {
     <Link
       href={href}
       className={c(
-        "relative flex px-2 py-1 align-middle decoration-neutral-900 underline-offset-4 transition-all hover:text-neutral-800/60 hover:underline dark:decoration-neutral-100 dark:hover:text-neutral-200/60",
+        'relative flex px-2 py-1 align-middle decoration-neutral-900 underline-offset-4 transition-all hover:text-neutral-800/60 hover:underline dark:decoration-neutral-100 dark:hover:text-neutral-200/60',
         active && 'underline'
       )}
     >
@@ -26,7 +26,7 @@ function ItemMenu({ children, href, active }: ItemMenuProps) {
 }
 
 export default function NavBar() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   const menuItems = [
     { label: 'criadores', href: '/criadores' },
@@ -36,7 +36,7 @@ export default function NavBar() {
   ];
 
   return (
-    <nav className="flex w-full flex-col justify-center gap-2 py-6 sm:h-24 sm:flex-row sm:items-center sm:justify-between sm:py-0">
+    <nav className="sticky top-0 flex h-auto w-full flex-col justify-center gap-2 bg-neutral-100 py-6 sm:h-24 sm:flex-row sm:items-center sm:justify-between sm:py-0 dark:bg-neutral-900">
       <Link href="/" className="text-2xl font-bold">
         Indie Hackers Brasil
       </Link>
@@ -49,7 +49,7 @@ export default function NavBar() {
             <ItemMenu key={index} href={item.href} active={active}>
               {item.label}
             </ItemMenu>
-          )
+          );
         })}
       </div>
     </nav>

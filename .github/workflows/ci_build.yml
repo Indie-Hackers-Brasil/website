@@ -1,4 +1,4 @@
-name: 'CI — Lint'
+name: 'CI — Build'
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     strategy:

@@ -31,7 +31,7 @@ jobs:
           restore-keys: npm-linux-
 
       - name: 📦 Installing Dependencies
-        run: npm ci
+        run: npm ci --force
 
       - name: 👔 ESLint + Prettier Check
         run: npm run lint && npm run format:check

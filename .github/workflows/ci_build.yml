@@ -31,7 +31,7 @@ jobs:
           restore-keys: npm-linux-
 
       - name: 📦 Installing Dependencies
-        run: npm ci
+        run: npm ci --force
 
       - name: 🤹🏻‍♀️ Building the Project
         run: npm run build

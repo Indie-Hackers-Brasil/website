@@ -1,5 +1,6 @@
 'use client';
 
+import { IconBrandGithub } from '@tabler/icons-react';
 import c from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -9,17 +10,19 @@ type ItemMenuProps = {
   children: ReactNode;
   href: string;
   active?: boolean;
+  icon?: ReactNode;
 };
 
-function ItemMenu({ children, href, active }: ItemMenuProps) {
+function ItemMenu({ children, href, active, icon }: ItemMenuProps) {
   return (
     <Link
       href={href}
       className={c(
-        'relative flex px-2 py-1 align-middle decoration-neutral-900 underline-offset-4 transition-all hover:text-neutral-800/60 hover:underline dark:decoration-neutral-100 dark:hover:text-neutral-200/60',
+        'relative flex items-center px-2 py-1 align-middle decoration-neutral-900 underline-offset-4 transition-all hover:text-neutral-800/60 hover:underline dark:decoration-neutral-100 dark:hover:text-neutral-200/60',
         active && 'underline'
       )}
     >
+      {icon && <span className="mr-2">{icon}</span>}
       {children}
     </Link>
   );
@@ -32,7 +35,8 @@ export default function NavBar() {
     { label: 'criadores', href: '/criadores' },
     { label: 'projetos', href: '/projetos' },
     { label: 'ideias', href: '/ideias' },
-    { label: 'sobre', href: '/sobre' }
+    { label: 'sobre', href: '/sobre' },
+    {  href: 'https://github.com/Indie-Hackers-Brasil/website', icon: <IconBrandGithub /> }
   ];
 
   return (
@@ -46,7 +50,7 @@ export default function NavBar() {
           const active = pathname === item.href;
 
           return (
-            <ItemMenu key={index} href={item.href} active={active}>
+            <ItemMenu key={index} href={item.href} active={active} icon={item.icon}>
               {item.label}
             </ItemMenu>
           );

@@ -15,7 +15,7 @@
     "@typescript-eslint/no-explicit-any": 0,
     "no-unused-vars": 1,
     "no-console": 1,
-     "simple-import-sort/imports": "error",
+    "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error"
   }
 }

@@ -36,7 +36,7 @@ export default function NavBar() {
     { label: 'projetos', href: '/projetos' },
     { label: 'ideias', href: '/ideias' },
     { label: 'sobre', href: '/sobre' },
-    {  href: 'https://github.com/Indie-Hackers-Brasil/website', icon: <IconBrandGithub /> }
+    { href: 'https://github.com/Indie-Hackers-Brasil/website', icon: <IconBrandGithub /> }
   ];
 
   return (

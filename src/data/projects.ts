@@ -42,12 +42,6 @@ const projects = [
       'Css2Wind é um minigame divertido para aprender Tailwind CSS, desenvolvido por @LukeberryPi.'
   },
   {
-    titulo: 'Sales Whisper',
-    site: 'https://saleswhisper.com.br/',
-    descricao:
-      'Sales Whisper ajuda com vendas utilizando o WhatsApp como ferramenta, liderado por @pedro_cto.'
-  },
-  {
     titulo: 'Codante',
     site: 'http://codante.io/',
     descricao:

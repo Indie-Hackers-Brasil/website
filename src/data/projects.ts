@@ -1,76 +1,155 @@
-const projects = [
+export interface Project {
+  id: string;
+  title: string;
+  description: string;
+  creator: {
+    name: string;
+    avatar?: string;
+    url?: string;
+  };
+  logo?: string;
+  category: string;
+  tags: string[];
+  url: string;
+  mrr?: string;
+  launched: string;
+  metrics?: {
+    users?: string;
+    customers?: string;
+    revenue?: string;
+  };
+  featured: boolean;
+  spotlight?: boolean;
+}
+
+export const projects: Project[] = [
   {
-    titulo: 'Alertpix',
-    site: 'https://alertpix.live/',
-    descricao:
-      'Alertpix é uma plataforma que permite streamers receberem no pix com a menor taxa de todas trazendo voz de I.A e segurança aos usuários, com uma comunidade incrível.'
+    id: "gestorize",
+    title: "Gestorize",
+    description: "Plataforma completa de gestão financeira para pequenas empresas e MEIs",
+    creator: {
+      name: "Marina Costa",
+      url: "/perfil/marina-costa"
+    },
+    logo: "/images/projects/gestorize.svg",
+    category: "Finanças",
+    tags: ["Gestão Financeira", "SaaS", "MEI", "Contabilidade"],
+    url: "/projetos/gestorize",
+    mrr: "R$ 25K+",
+    launched: "2023-02-15",
+    metrics: {
+      users: "1.2K+",
+      customers: "380+",
+      revenue: "R$ 300K+ anual"
+    },
+    featured: true,
+    spotlight: true
   },
   {
-    titulo: 'Lo Cafe',
-    site: 'https://lo.cafe/',
-    descricao:
-      'Lo Cafe, feito pelo clã Uchira, é amplamente popular e promovido por influenciadores gringos.'
+    id: "devmetrics",
+    title: "DevMetrics",
+    description: "Monitoramento de performance para times de desenvolvimento de software",
+    creator: {
+      name: "Lucas Mendonça",
+      url: "/perfil/lucas-mendonca"
+    },
+    logo: "/images/projects/devmetrics.svg",
+    category: "DevTools",
+    tags: ["Monitoramento", "DevOps", "Desenvolvimento", "Produtividade"],
+    url: "/projetos/devmetrics",
+    mrr: "R$ 12K+",
+    launched: "2022-11-10",
+    metrics: {
+      users: "4K+",
+      customers: "150+",
+      revenue: "R$ 144K+ anual"
+    },
+    featured: true,
+    spotlight: true
   },
   {
-    titulo: 'Poku',
-    site: 'https://poku.io/',
-    descricao:
-      'Poku é um test runner open-source que facilita e agiliza os testes em Node.js, Bun e Deno, criado por @wellwelwel.'
+    id: "markety",
+    title: "Markety",
+    description: "Automatização de marketing para e-commerces e marketplaces",
+    creator: {
+      name: "Carla Fernandes",
+      url: "/perfil/carla-fernandes"
+    },
+    logo: "/images/projects/markety.svg",
+    category: "Marketing",
+    tags: ["E-commerce", "Automação", "Analytics", "CRM"],
+    url: "/projetos/markety",
+    mrr: "R$ 18K+",
+    launched: "2023-05-22",
+    metrics: {
+      users: "800+",
+      customers: "210+",
+      revenue: "R$ 216K+ anual"
+    },
+    featured: true,
+    spotlight: true
   },
   {
-    titulo: 'Loja na Bio',
-    site: 'https://www.lojanabio.com/',
-    descricao:
-      'Loja na Bio ajuda criadores de conteúdo a venderem seus produtos com um catálogo virtual e recebimento de pedidos diretamente no WhatsApp.'
+    id: "legalease",
+    title: "LegalEase",
+    description: "Automação de documentos e contratos jurídicos com IA para empresas",
+    creator: {
+      name: "Ricardo Oliveira",
+      url: "/perfil/ricardo-oliveira"
+    },
+    logo: "/images/projects/legalease.svg",
+    category: "Legal",
+    tags: ["Jurídico", "IA", "Contratos", "Automação"],
+    url: "/projetos/legalease",
+    mrr: "R$ 15K+",
+    launched: "2023-08-05",
+    metrics: {
+      users: "500+",
+      customers: "120+",
+      revenue: "R$ 180K+ anual"
+    },
+    featured: true
   },
   {
-    titulo: 'BlindPay',
-    site: 'https://blindpay.com/',
-    descricao:
-      'BlindPay revoluciona a forma de transacionar criptomoedas, sendo a primeira plataforma web3 desta lista, criada por @bebedaselva.'
+    id: "edutechpro",
+    title: "EduTechPro",
+    description: "Plataforma de cursos online e comunidade para profissionais de tecnologia",
+    creator: {
+      name: "Juliana Santos",
+      url: "/perfil/juliana-santos"
+    },
+    logo: "/images/projects/edutechpro.svg",
+    category: "Educação",
+    tags: ["Cursos", "Comunidade", "Tecnologia", "Carreira"],
+    url: "/projetos/edutechpro",
+    mrr: "R$ 22K+",
+    launched: "2022-07-15",
+    metrics: {
+      users: "5K+",
+      customers: "900+",
+      revenue: "R$ 264K+ anual"
+    },
+    featured: true
   },
   {
-    titulo: 'Menthor',
-    site: 'https://menthor.io/',
-    descricao:
-      'Menthor oferece cursos gratuitos para aprender sobre web3 e outras tecnologias, criada por @bebedaselva.'
-  },
-  {
-    titulo: 'Css2Wind',
-    site: 'https://www.css2wind.com/',
-    descricao:
-      'Css2Wind é um minigame divertido para aprender Tailwind CSS, desenvolvido por @LukeberryPi.'
-  },
-  {
-    titulo: 'Sales Whisper',
-    site: 'https://saleswhisper.com.br/',
-    descricao:
-      'Sales Whisper ajuda com vendas utilizando o WhatsApp como ferramenta, liderado por @pedro_cto.'
-  },
-  {
-    titulo: 'Codante',
-    site: 'http://codante.io/',
-    descricao:
-      'Codante oferece cursos e workshops de programação para aprimorar suas habilidades, com conteúdos atualizados.'
-  },
-  {
-    titulo: 'Comanda Rápida',
-    site: 'https://comandarapida.com.br/',
-    descricao:
-      'Comanda Rápida é um sistema de gestão empresarial com planos a partir de R$ 7,90, desenvolvido por @velfo e @andreluis2.'
-  },
-  {
-    titulo: 'HumanTrack',
-    site: 'https://humantrack.io/',
-    descricao:
-      'HumanTrack está construindo a próxima geração em monitoramento de saúde, melhorando a experiência tanto para profissionais de saúde quanto para pacientes.'
-  },
-  {
-    titulo: '5Devs',
-    site: 'https://5devs.com.br/',
-    descricao:
-      '5Devs é uma plataforma para geração de dados falsos para fins de testes, desenvolvido por @gustavo-fior.'
+    id: "recruita",
+    title: "Recruita",
+    description: "Plataforma de recrutamento e seleção para startups e empresas de tecnologia",
+    creator: {
+      name: "Gabriel Almeida",
+      url: "/perfil/gabriel-almeida"
+    },
+    logo: "/images/projects/recruita.svg",
+    category: "RH",
+    tags: ["Recrutamento", "RH", "Entrevistas", "Gestão de Talentos"],
+    url: "/projetos/recruita",
+    mrr: "R$ 16K+",
+    launched: "2023-03-10",
+    metrics: {
+      users: "600+",
+      customers: "85+",
+      revenue: "R$ 192K+ anual"
+    },
+    featured: true
   }
 ];
-
-export default projects;

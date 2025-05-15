@@ -46,6 +46,7 @@ export const projects: Project[] = [
     spotlight: true
   },
   {
+
     id: "devmetrics",
     title: "DevMetrics",
     description: "Monitoramento de performance para times de desenvolvimento de software",

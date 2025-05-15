@@ -1,0 +1,209 @@
+{
+  "id": "matbrgz",
+  "name": "Matheus Breguêz",
+  "role": "Desenvolvedor Full Stack & Indie Hacker",
+  "avatar": "https://avatars.githubusercontent.com/u/matbrgz",
+  "bio": "Desenvolvedor apaixonado por criar produtos web e mobile com foco em resultado. Trabalhando ativamente em projetos SaaS e compartilhando conhecimento com a comunidade Indie Hackers Brasil.",
+  "location": "São Paulo, SP",
+  "status": "trabalhando",
+  "joinedAt": "2023-01-15",
+  "verified": true,
+  "featured": true,
+  "socialLinks": {
+    "website": "https://matbrgz.dev",
+    "twitter": "matbrgz",
+    "github": "matbrgz",
+    "linkedin": "https://linkedin.com/in/matbrgz",
+    "youtube": "https://youtube.com/@matbrgz",
+    "instagram": "matbrgz",
+    "productHunt": "matbrgz",
+    "discord": "matbrgz#4269"
+  },
+  "skills": [
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "Next.js",
+    "Node.js",
+    "GraphQL",
+    "AWS",
+    "Firebase",
+    "UI/UX",
+    "Marketing Digital",
+    "SEO",
+    "Growth Hacking"
+  ],
+  "projects": [
+    {
+      "id": "indiehackers-brasil",
+      "title": "Indie Hackers Brasil",
+      "description": "Comunidade para empreendedores independentes brasileiros compartilharem conhecimento e construírem produtos digitais juntos.",
+      "url": "https://indiehackers.com.br",
+      "logo": "/images/projects/ihb.svg",
+      "category": "Comunidade",
+      "status": "crescimento",
+      "launched": "2023-03-10",
+      "metrics": {
+        "users": "500+",
+        "customers": "N/A",
+        "mrr": "Comunidade gratuita"
+      },
+      "tags": ["Comunidade", "Empreendedorismo", "SaaS", "Bootstrap"]
+    },
+    {
+      "id": "devflow",
+      "title": "DevFlow",
+      "description": "Plataforma de automação de fluxos de trabalho para times de desenvolvimento.",
+      "url": "https://devflow.app",
+      "logo": "/images/projects/devflow.svg",
+      "category": "DevTools",
+      "status": "lançado",
+      "launched": "2023-07-20",
+      "metrics": {
+        "users": "350+",
+        "customers": "42",
+        "mrr": "R$ 6K+"
+      },
+      "tags": ["Automação", "DevOps", "Produtividade", "SaaS"]
+    },
+    {
+      "id": "staticgen",
+      "title": "StaticGen",
+      "description": "Gerador de sites estáticos com foco em performance e SEO para desenvolvedores.",
+      "url": "https://staticgen.dev",
+      "logo": "/images/projects/staticgen.svg",
+      "category": "Developer Tools",
+      "status": "beta",
+      "launched": "2023-11-05",
+      "metrics": {
+        "users": "120+",
+        "customers": "Early adopters",
+        "mrr": "Em fase de validação"
+      },
+      "tags": ["JAMstack", "SEO", "Performance", "Open Source"]
+    }
+  ],
+  "gamification": {
+    "level": 28,
+    "experience": 12450,
+    "streak": 64,
+    "rank": "mentor",
+    "reputation": 870,
+    "badges": [
+      {
+        "id": "founder",
+        "name": "Fundador",
+        "description": "Fundou a comunidade Indie Hackers Brasil",
+        "icon": "/images/badges/founder.svg",
+        "earnedAt": "2023-01-15",
+        "category": "comunidade",
+        "rarity": "lendário"
+      },
+      {
+        "id": "first-launch",
+        "name": "Primeiro Lançamento",
+        "description": "Lançou seu primeiro produto com sucesso",
+        "icon": "/images/badges/rocket.svg",
+        "earnedAt": "2023-03-10",
+        "category": "projeto",
+        "rarity": "comum"
+      },
+      {
+        "id": "mentor-10",
+        "name": "Mentor Bronze",
+        "description": "Ofereceu mais de 10 horas de mentoria para a comunidade",
+        "icon": "/images/badges/mentor.svg",
+        "earnedAt": "2023-05-20",
+        "category": "mentoria",
+        "rarity": "incomum"
+      },
+      {
+        "id": "event-host",
+        "name": "Anfitrião",
+        "description": "Organizou um evento para a comunidade",
+        "icon": "/images/badges/event.svg",
+        "earnedAt": "2023-04-15",
+        "category": "evento",
+        "rarity": "raro"
+      },
+      {
+        "id": "streak-30",
+        "name": "Consistência",
+        "description": "Manteve uma sequência de atividade por 30 dias",
+        "icon": "/images/badges/streak.svg",
+        "earnedAt": "2023-08-05",
+        "category": "comunidade",
+        "rarity": "incomum"
+      }
+    ],
+    "milestones": [
+      {
+        "title": "Primeiro MRR",
+        "description": "Atingiu o primeiro MRR de R$1.000 com o projeto DevFlow",
+        "date": "2023-08-10",
+        "icon": "/images/milestones/money.svg"
+      },
+      {
+        "title": "100 Membros",
+        "description": "A comunidade Indie Hackers Brasil atingiu 100 membros ativos",
+        "date": "2023-05-22",
+        "icon": "/images/milestones/community.svg"
+      },
+      {
+        "title": "Primeiro Evento",
+        "description": "Organizou o primeiro evento presencial da comunidade em São Paulo",
+        "date": "2023-04-15",
+        "icon": "/images/milestones/event.svg"
+      }
+    ],
+    "challenges": [
+      {
+        "id": "product-launch",
+        "title": "Lançamento de Produto",
+        "description": "Lance seu novo produto StaticGen para o público geral",
+        "progress": 75,
+        "startDate": "2023-10-01",
+        "endDate": "2023-12-31",
+        "reward": {
+          "experience": 500,
+          "badge": "product-launcher"
+        }
+      },
+      {
+        "id": "content-creation",
+        "title": "Criador de Conteúdo",
+        "description": "Publique 10 artigos ou vídeos sobre sua jornada empreendedora",
+        "progress": 40,
+        "startDate": "2023-09-15",
+        "endDate": "2024-01-15",
+        "reward": {
+          "experience": 300,
+          "badge": "content-creator"
+        }
+      }
+    ]
+  },
+  "contributions": {
+    "posts": 35,
+    "comments": 128,
+    "events": 3,
+    "mentoring": 22
+  },
+  "preferences": {
+    "newsletter": true,
+    "notifications": {
+      "email": true,
+      "discord": true,
+      "browser": true
+    },
+    "privacy": {
+      "showProjects": true,
+      "showSocialLinks": true,
+      "showLocation": true
+    }
+  },
+  "contact": {
+    "email": "matheus@indiehackers.com.br",
+    "phone": "+5511912345678"
+  }
+} 

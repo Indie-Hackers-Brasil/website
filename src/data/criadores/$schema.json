@@ -1,0 +1,417 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://indiehackers.com.br/schemas/creator.json",
+  "title": "Criador",
+  "description": "Schema para perfil de criadores da comunidade Indie Hackers Brasil",
+  "type": "object",
+  "required": ["id", "name", "role", "avatar", "bio", "status", "joinedAt"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identificador único do criador (username)",
+      "pattern": "^[a-z0-9-_]+$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Nome completo do criador"
+    },
+    "role": {
+      "type": "string",
+      "description": "Função principal ou título profissional"
+    },
+    "avatar": {
+      "type": "string",
+      "description": "URL da imagem de avatar",
+      "format": "uri"
+    },
+    "bio": {
+      "type": "string",
+      "description": "Biografia curta do criador",
+      "maxLength": 500
+    },
+    "location": {
+      "type": "string",
+      "description": "Localização do criador (cidade/estado)"
+    },
+    "status": {
+      "type": "string",
+      "description": "Status atual do criador",
+      "enum": ["disponível", "trabalhando", "ocupado", "ausente", "contratando"]
+    },
+    "joinedAt": {
+      "type": "string",
+      "description": "Data em que se juntou à comunidade",
+      "format": "date"
+    },
+    "verified": {
+      "type": "boolean",
+      "description": "Indica se o perfil é verificado",
+      "default": false
+    },
+    "featured": {
+      "type": "boolean",
+      "description": "Indica se o criador deve ser destacado",
+      "default": false
+    },
+    "socialLinks": {
+      "type": "object",
+      "description": "Links para redes sociais e plataformas",
+      "properties": {
+        "website": {
+          "type": "string",
+          "format": "uri",
+          "description": "Site ou portfolio pessoal"
+        },
+        "twitter": {
+          "type": "string",
+          "description": "Username do Twitter/X"
+        },
+        "github": {
+          "type": "string",
+          "description": "Username do GitHub"
+        },
+        "linkedin": {
+          "type": "string",
+          "description": "URL completa do perfil do LinkedIn"
+        },
+        "youtube": {
+          "type": "string",
+          "description": "URL do canal do YouTube"
+        },
+        "instagram": {
+          "type": "string",
+          "description": "Username do Instagram"
+        },
+        "productHunt": {
+          "type": "string",
+          "description": "Username do Product Hunt"
+        },
+        "discord": {
+          "type": "string",
+          "description": "Username do Discord"
+        }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "description": "Lista de habilidades do criador",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "projects": {
+      "type": "array",
+      "description": "Projetos do criador",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "description"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único do projeto"
+          },
+          "title": {
+            "type": "string",
+            "description": "Nome do projeto"
+          },
+          "description": {
+            "type": "string",
+            "description": "Descrição breve do projeto"
+          },
+          "url": {
+            "type": "string",
+            "description": "URL do projeto",
+            "format": "uri"
+          },
+          "logo": {
+            "type": "string",
+            "description": "URL do logo do projeto",
+            "format": "uri"
+          },
+          "category": {
+            "type": "string",
+            "description": "Categoria do projeto"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status do projeto",
+            "enum": ["ideia", "mvp", "beta", "lançado", "crescimento", "vendido", "encerrado"]
+          },
+          "launched": {
+            "type": "string",
+            "description": "Data de lançamento",
+            "format": "date"
+          },
+          "metrics": {
+            "type": "object",
+            "description": "Métricas do projeto",
+            "properties": {
+              "mrr": {
+                "type": "string",
+                "description": "Receita mensal recorrente"
+              },
+              "users": {
+                "type": "string",
+                "description": "Número de usuários"
+              },
+              "customers": {
+                "type": "string",
+                "description": "Número de clientes"
+              }
+            }
+          },
+          "tags": {
+            "type": "array",
+            "description": "Tags do projeto",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "gamification": {
+      "type": "object",
+      "description": "Elementos de gamificação do perfil",
+      "properties": {
+        "level": {
+          "type": "integer",
+          "description": "Nível do criador na comunidade",
+          "minimum": 1
+        },
+        "experience": {
+          "type": "integer",
+          "description": "Pontos de experiência acumulados",
+          "minimum": 0
+        },
+        "streak": {
+          "type": "integer",
+          "description": "Dias consecutivos de atividade",
+          "minimum": 0
+        },
+        "rank": {
+          "type": "string",
+          "description": "Rank atual na comunidade",
+          "enum": ["novato", "builder", "maker", "creator", "indiehacker", "mentor", "expert", "legend"]
+        },
+        "reputation": {
+          "type": "integer",
+          "description": "Pontos de reputação na comunidade",
+          "minimum": 0
+        },
+        "badges": {
+          "type": "array",
+          "description": "Conquistas e badges do criador",
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "description", "icon"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Identificador único do badge"
+              },
+              "name": {
+                "type": "string",
+                "description": "Nome do badge"
+              },
+              "description": {
+                "type": "string",
+                "description": "Descrição da conquista"
+              },
+              "icon": {
+                "type": "string",
+                "description": "URL do ícone do badge",
+                "format": "uri"
+              },
+              "earnedAt": {
+                "type": "string",
+                "description": "Data em que o badge foi conquistado",
+                "format": "date"
+              },
+              "category": {
+                "type": "string",
+                "description": "Categoria do badge",
+                "enum": ["comunidade", "projeto", "networking", "conhecimento", "mentoria", "evento", "desafio"]
+              },
+              "rarity": {
+                "type": "string",
+                "description": "Raridade do badge",
+                "enum": ["comum", "incomum", "raro", "épico", "lendário"]
+              }
+            }
+          }
+        },
+        "milestones": {
+          "type": "array",
+          "description": "Marcos importantes alcançados",
+          "items": {
+            "type": "object",
+            "required": ["title", "description", "date"],
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Título do marco"
+              },
+              "description": {
+                "type": "string",
+                "description": "Descrição do marco"
+              },
+              "date": {
+                "type": "string",
+                "description": "Data em que o marco foi alcançado",
+                "format": "date"
+              },
+              "icon": {
+                "type": "string",
+                "description": "URL do ícone do marco",
+                "format": "uri"
+              }
+            }
+          }
+        },
+        "challenges": {
+          "type": "array",
+          "description": "Desafios atuais do criador",
+          "items": {
+            "type": "object",
+            "required": ["id", "title", "description", "progress"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Identificador único do desafio"
+              },
+              "title": {
+                "type": "string",
+                "description": "Título do desafio"
+              },
+              "description": {
+                "type": "string",
+                "description": "Descrição do desafio"
+              },
+              "progress": {
+                "type": "integer",
+                "description": "Progresso atual (percentual)",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "startDate": {
+                "type": "string",
+                "description": "Data de início do desafio",
+                "format": "date"
+              },
+              "endDate": {
+                "type": "string",
+                "description": "Data de término do desafio",
+                "format": "date"
+              },
+              "reward": {
+                "type": "object",
+                "description": "Recompensa pelo término do desafio",
+                "properties": {
+                  "experience": {
+                    "type": "integer",
+                    "description": "Pontos de experiência"
+                  },
+                  "badge": {
+                    "type": "string",
+                    "description": "Badge a ser conquistado"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "contributions": {
+      "type": "object",
+      "description": "Contribuições para a comunidade",
+      "properties": {
+        "posts": {
+          "type": "integer",
+          "description": "Número de posts publicados",
+          "minimum": 0
+        },
+        "comments": {
+          "type": "integer",
+          "description": "Número de comentários",
+          "minimum": 0
+        },
+        "events": {
+          "type": "integer",
+          "description": "Número de eventos organizados",
+          "minimum": 0
+        },
+        "mentoring": {
+          "type": "integer",
+          "description": "Horas de mentoria oferecidas",
+          "minimum": 0
+        }
+      }
+    },
+    "preferences": {
+      "type": "object",
+      "description": "Preferências do criador",
+      "properties": {
+        "newsletter": {
+          "type": "boolean",
+          "description": "Deseja receber newsletter",
+          "default": true
+        },
+        "notifications": {
+          "type": "object",
+          "description": "Configurações de notificações",
+          "properties": {
+            "email": {
+              "type": "boolean",
+              "default": true
+            },
+            "discord": {
+              "type": "boolean",
+              "default": false
+            },
+            "browser": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        },
+        "privacy": {
+          "type": "object",
+          "description": "Configurações de privacidade",
+          "properties": {
+            "showProjects": {
+              "type": "boolean",
+              "default": true
+            },
+            "showSocialLinks": {
+              "type": "boolean",
+              "default": true
+            },
+            "showLocation": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "description": "Informações de contato privadas",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email principal"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Número de telefone (formato internacional)"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

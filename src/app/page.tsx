@@ -1,24 +1,21 @@
-import Link from 'next/link';
+import { CTASection } from '@/components/organisms/cta-section';
+import { FeaturedProjects } from '@/components/organisms/featured-projects';
+import { FeaturesSection } from '@/components/organisms/features-section';
+import { HeroSection } from '@/components/organisms/hero-section';
+import { ParallaxBackground } from '@/components/organisms/parallax-background';
+import { TestimonialsSection } from '@/components/organisms/testimonials-section';
 
 export default function Home() {
   return (
-    <main className="flex flex-1 flex-col items-center justify-center gap-4 text-balance text-center">
-      <h1 className="text-3xl font-bold">Em desenvolvimento ⚠️</h1>
-      <div>
-        <p>Estamos dedicados a trazer o melhor conteúdo para você. Fique ligado(a)!</p>
-        <p>
-          <i>
-            Enquanto isso, confira os{' '}
-            <Link
-              href="/projetos"
-              className="text-blue-800 underline transition-all hover:text-blue-700 dark:text-blue-200 hover:dark:text-blue-300"
-            >
-              projetos
-            </Link>{' '}
-            que já estão disponíveis.
-          </i>
-        </p>
-      </div>
-    </main>
+    <>
+      <ParallaxBackground />
+      <main className="flex flex-col relative z-0">
+        <HeroSection />
+        <FeaturesSection />
+        <FeaturedProjects />
+        <TestimonialsSection />
+        <CTASection />
+      </main>
+    </>
   );
 }

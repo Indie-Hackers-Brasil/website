@@ -1,6 +1,6 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { Stat } from "@/data/stats";
+import { Card, CardContent } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import { Stat } from '@/data/stats';
 
 interface StatCardProps {
   stat: Stat;
@@ -10,13 +10,14 @@ interface StatCardProps {
 
 export function StatCard({ stat, className, highlightValue = false }: StatCardProps) {
   return (
-    <Card className={cn("overflow-hidden border-2", className)}>
+    <Card className={cn('overflow-hidden border-2 ', className)}>
       <CardContent className="p-6">
         <div className="flex flex-col items-center text-center">
           <span
             className={cn(
-              "text-3xl font-bold md:text-4xl",
-              highlightValue && "bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
+              'text-3xl font-bold md:text-4xl',
+              highlightValue &&
+                'bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent'
             )}
           >
             {stat.value}
@@ -33,4 +34,4 @@ export function StatCard({ stat, className, highlightValue = false }: StatCardPr
   );
 }
 
-export default StatCard; 
+export default StatCard;

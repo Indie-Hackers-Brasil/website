@@ -13,7 +13,7 @@
     {
       "binding": "DB",
       "database_name": "indiehackersbrasil-db",
-      "database_id": "<CLOUDFLARE_DATABASE_ID>",
+      "database_id": "e0bdb541-3d98-4ab4-9568-2e290402f1ca",
       "migrations_dir": "src/lib/db/migrations"
     }
   ]

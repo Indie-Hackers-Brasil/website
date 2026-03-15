@@ -2,6 +2,19 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "indiehackersbrasil",
   "compatibility_date": "2025-09-02",
-  "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/react-start/server-entry"
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "main": "@tanstack/react-start/server-entry",
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "indiehackersbrasil-db",
+      "database_id": "<CLOUDFLARE_DATABASE_ID>",
+      "migrations_dir": "src/lib/db/migrations"
+    }
+  ]
 }

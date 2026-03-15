@@ -10,11 +10,29 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PageRouteImport } from './routes/page'
+import { Route as OnboardingPageRouteImport } from './routes/onboarding/page'
+import { Route as ConfiguracoesPageRouteImport } from './routes/configuracoes/page'
+import { Route as UUsernamePageRouteImport } from './routes/u/$username/page'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const PageRoute = PageRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingPageRoute = OnboardingPageRouteImport.update({
+  id: '/onboarding/',
+  path: '/onboarding/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfiguracoesPageRoute = ConfiguracoesPageRouteImport.update({
+  id: '/configuracoes/',
+  path: '/configuracoes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UUsernamePageRoute = UUsernamePageRouteImport.update({
+  id: '/u/$username/',
+  path: '/u/$username/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
@@ -25,28 +43,51 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof PageRoute
+  '/configuracoes/': typeof ConfiguracoesPageRoute
+  '/onboarding/': typeof OnboardingPageRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/u/$username/': typeof UUsernamePageRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PageRoute
+  '/configuracoes': typeof ConfiguracoesPageRoute
+  '/onboarding': typeof OnboardingPageRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/u/$username': typeof UUsernamePageRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof PageRoute
+  '/configuracoes/': typeof ConfiguracoesPageRoute
+  '/onboarding/': typeof OnboardingPageRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/u/$username/': typeof UUsernamePageRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/auth/$'
+  fullPaths:
+    | '/'
+    | '/configuracoes/'
+    | '/onboarding/'
+    | '/api/auth/$'
+    | '/u/$username/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/auth/$'
-  id: '__root__' | '/' | '/api/auth/$'
+  to: '/' | '/configuracoes' | '/onboarding' | '/api/auth/$' | '/u/$username'
+  id:
+    | '__root__'
+    | '/'
+    | '/configuracoes/'
+    | '/onboarding/'
+    | '/api/auth/$'
+    | '/u/$username/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   PageRoute: typeof PageRoute
+  ConfiguracoesPageRoute: typeof ConfiguracoesPageRoute
+  OnboardingPageRoute: typeof OnboardingPageRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  UUsernamePageRoute: typeof UUsernamePageRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -56,6 +97,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof PageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/': {
+      id: '/onboarding/'
+      path: '/onboarding'
+      fullPath: '/onboarding/'
+      preLoaderRoute: typeof OnboardingPageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/configuracoes/': {
+      id: '/configuracoes/'
+      path: '/configuracoes'
+      fullPath: '/configuracoes/'
+      preLoaderRoute: typeof ConfiguracoesPageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/u/$username/': {
+      id: '/u/$username/'
+      path: '/u/$username'
+      fullPath: '/u/$username/'
+      preLoaderRoute: typeof UUsernamePageRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/auth/$': {
@@ -70,7 +132,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   PageRoute: PageRoute,
+  ConfiguracoesPageRoute: ConfiguracoesPageRoute,
+  OnboardingPageRoute: OnboardingPageRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  UUsernamePageRoute: UUsernamePageRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

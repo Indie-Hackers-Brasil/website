@@ -36,6 +36,13 @@
       "when": 1773984000000,
       "tag": "0004_add_events",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1773703973338,
+      "tag": "0005_lethal_typhoid_mary",
+      "breakpoints": true
     }
   ]
 }

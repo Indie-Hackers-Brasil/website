@@ -128,6 +128,7 @@ profile
 ├── linkedin
 ├── interests (JSON)
 ├── isOnboardingComplete (boolean)
+├── role (member | moderator | admin, default member)
 ├── createdAt
 └── updatedAt
 ```
@@ -239,6 +240,25 @@ A tabela `account` do Better-Auth ja armazena o `accessToken` do Discord. Durant
 **Por que nao as outras opcoes:**
 - `mapProfileToUser`: campos extras retornados por essa funcao nao sao persistidos na tabela `user` (que nao devemos modificar), e combinar com `databaseHooks` adiciona complexidade desnecessaria ao auth config
 - Plugin `username` do Better-Auth: adiciona colunas a tabela `user` gerenciada pelo Better-Auth, conflitando com a regra de nao modificar `auth.schema.ts`
+
+---
+
+## Decisoes Tomadas — Sistema de Roles
+
+O sistema de permissoes da plataforma espelha as roles da comunidade no Discord. O campo `role` na tabela `profile` define o nivel de acesso do usuario:
+
+| Valor | Descricao |
+|-------|-----------|
+| `member` | Membro comum da comunidade (padrao para todos os usuarios apos onboarding) |
+| `moderator` | Moderador da comunidade — pode aprovar/rejeitar eventos e criar comunicados no feed |
+| `admin` | Administrador da plataforma — todas as permissoes de moderator + gerenciamento geral |
+
+**Atribuicao de roles:**
+- Todo usuario comeca como `member` ao completar o onboarding
+- A role e atribuida manualmente no banco de dados ou via dashboard administrativo (futuro)
+- **Funcionalidade futura**: sincronizacao automatica de roles com o Discord via API, permitindo que roles atribuidas no servidor Discord sejam refletidas na plataforma
+
+**Nota**: o campo `role` nao aparece no formulario de onboarding nem na pagina de configuracoes. Apenas moderators e admins podem alterar roles de outros usuarios (via dashboard futuro).
 
 ---
 

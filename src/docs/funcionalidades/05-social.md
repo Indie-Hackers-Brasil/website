@@ -196,7 +196,7 @@ Secao "Comentarios e Avaliacoes":
 
 - **Criar comentario**: qualquer membro com perfil completo
 - **Editar comentario**: apenas o autor
-- **Excluir comentario**: autor ou admin
+- **Excluir comentario**: autor, moderator ou admin
 - **Owner do projeto**: pode comentar no proprio projeto (ex.: responder perguntas), mas nao pode se auto-avaliar (rating bloqueado no proprio projeto)
 
 ### Server Functions
@@ -208,7 +208,7 @@ Cria comentario. Se incluir rating, verifica a regra de rating unico.
 Atualiza comentario. Apenas o autor pode editar.
 
 #### `deleteComment(commentId: string, requesterId: string)`
-Exclui comentario. Permite se for o autor ou admin.
+Exclui comentario. Permite se for o autor, moderator ou admin.
 
 #### `getProjectComments(projectId: string, cursor?: number)`
 Lista comentarios do projeto com paginacao cursor-based.

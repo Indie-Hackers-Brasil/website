@@ -22,6 +22,13 @@
       "when": 1773626520028,
       "tag": "0002_sweet_hardball",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1773897600000,
+      "tag": "0003_add_profile_role",
+      "breakpoints": true
     }
   ]
 }

@@ -2,7 +2,7 @@
 
 ## Visao Geral
 
-O Feed e o coracao da plataforma — um espaco onde membros compartilham atualizacoes sobre seus projetos (Build In Public) e admins publicam comunicados da comunidade. A exibicao e **cronologica reversa** (mais recente primeiro), sem algoritmo.
+O Feed e o coracao da plataforma — um espaco onde membros compartilham atualizacoes sobre seus projetos (Build In Public) e moderators/admins publicam comunicados da comunidade. A exibicao e **cronologica reversa** (mais recente primeiro), sem algoritmo.
 
 ## Comportamento por Estado de Autenticacao
 
@@ -49,7 +49,7 @@ posts
 
 ### `announcement` — Comunicado
 
-- Criado **apenas por admins**
+- Criado por **moderators e admins** (`profile.role = "moderator"` ou `"admin"`)
 - Aparece com **destaque visual** diferenciado no feed (borda, icone ou cor de fundo distintos)
 - Usado para novidades da comunidade, avisos, mudancas de regra, etc.
 - Nao e vinculado a um projeto
@@ -95,7 +95,7 @@ No topo do feed, formulario inline para criar um novo post:
 - Upload de imagem (opcional)
 - Botao "Publicar"
 
-Admins veem um toggle adicional para marcar o post como `announcement`.
+Moderators e admins veem um toggle adicional para marcar o post como `announcement`.
 
 ---
 
@@ -127,10 +127,10 @@ Rota dedicada do Feed. Protegida (requer auth + perfil completo).
 ## Server Functions
 
 ### `createPost(data: CreatePostInput)`
-Cria post. Se `type = "announcement"`, verifica se o usuario e admin.
+Cria post. Se `type = "announcement"`, verifica se o usuario e moderator ou admin.
 
 ### `deletePost(postId: string, userId: string)`
-Exclui post. Permite se `userId` e o autor do post ou um admin.
+Exclui post. Permite se `userId` e o autor do post, um moderator ou um admin.
 
 ### `listFeed(cursor?: number, limit?: number, type?: string)`
 Lista posts com paginacao cursor-based. Filtra por tipo se especificado.

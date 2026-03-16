@@ -148,12 +148,24 @@ Perfil publico do usuario. Relacao 1:1 com `user`.
 | `linkedin` | `text("linkedin")` | — | URL do LinkedIn |
 | `interests` | `text("interests", { mode: "json" })` | — | Array JSON de areas de interesse |
 | `isOnboardingComplete` | `integer("is_onboarding_complete", { mode: "boolean" })` | NOT NULL, default `false` | Controle de fluxo do onboarding |
+| `role` | `text("role")` | NOT NULL, default `"member"` | Role na plataforma: `member` / `moderator` / `admin` |
 | `createdAt` | `integer("created_at", { mode: "timestamp_ms" })` | NOT NULL, default now | |
 | `updatedAt` | `integer("updated_at", { mode: "timestamp_ms" })` | NOT NULL, default now, auto-update | |
+
+**Valores de `role`:**
+
+| Valor | Descricao |
+|-------|-----------|
+| `member` | Membro comum da comunidade (padrao para todos os usuarios) |
+| `moderator` | Moderador da comunidade — pode aprovar/rejeitar eventos e criar comunicados |
+| `admin` | Administrador da plataforma — todas as permissoes de moderator + gerenciamento geral |
+
+**Nota**: a role e atribuida manualmente no banco de dados ou via dashboard administrativo (futuro). Em uma versao futura, sera possivel sincronizar roles com as roles da comunidade no Discord via API.
 
 **Indices:**
 - `profile_userId_unique` em `userId` (UNIQUE)
 - `profile_username_unique` em `username` (UNIQUE)
+- `profile_role_idx` em `role`
 
 **Relations:**
 ```
@@ -233,13 +245,18 @@ Eventos da comunidade e parceiros.
 | `bannerUrl` | `text("banner_url")` | — | Banner/imagem do evento |
 | `organizerName` | `text("organizer_name")` | NOT NULL | Nome do organizador |
 | `isPartner` | `integer("is_partner", { mode: "boolean" })` | NOT NULL, default `false` | Se e parceiro externo (true) ou a propria comunidade (false) |
-| `createdBy` | `text("created_by")` | NOT NULL, FK → `user.id` CASCADE | Admin que cadastrou |
+| `status` | `text("status")` | NOT NULL, default `"pending"` | Status de aprovacao: `pending` / `approved` / `rejected` |
+| `rejectionReason` | `text("rejection_reason")` | — | Motivo da rejeicao, preenchido por moderator/admin |
+| `submittedBy` | `text("submitted_by")` | NOT NULL, FK → `user.id` CASCADE | Membro que submeteu o evento |
+| `reviewedBy` | `text("reviewed_by")` | FK → `user.id` SET NULL | Moderator/admin que revisou |
+| `reviewedAt` | `integer("reviewed_at", { mode: "timestamp_ms" })` | — | Data da revisao |
 | `createdAt` | `integer("created_at", { mode: "timestamp_ms" })` | NOT NULL, default now | |
 | `updatedAt` | `integer("updated_at", { mode: "timestamp_ms" })` | NOT NULL, default now, auto-update | |
 
 **Indices:**
 - `events_date_idx` em `date` (para ordenar proximos/passados)
-- `events_createdBy_idx` em `createdBy`
+- `events_status_idx` em `status` (para filtrar por status de aprovacao)
+- `events_submittedBy_idx` em `submittedBy`
 
 ---
 
@@ -268,7 +285,7 @@ user 1 ──→ N event_members
 
 ### `posts` (em `posts.schema.ts`)
 
-Posts do feed — comunicados de admin e atualizacoes de Build In Public.
+Posts do feed — comunicados de moderator/admin e atualizacoes de Build In Public.
 
 | Campo | Tipo Drizzle | Restricoes | Descricao |
 |-------|-------------|-----------|-----------|
@@ -435,7 +452,8 @@ projects 1 ──→ N comments
 | `user` | `profile` | 1:1 | `profile.userId` |
 | `user` | `project_members` | 1:N | `project_members.userId` |
 | `projects` | `project_members` | 1:N | `project_members.projectId` |
-| `user` | `events` | 1:N | `events.createdBy` |
+| `user` | `events` | 1:N | `events.submittedBy` |
+| `user` | `events` | 1:N | `events.reviewedBy` (moderator/admin que revisou) |
 | `events` | `event_members` | 1:N | `event_members.eventId` |
 | `user` | `event_members` | 1:N | `event_members.userId` |
 | `user` | `posts` | 1:N | `posts.authorId` |

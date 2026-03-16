@@ -10,8 +10,12 @@ A plataforma exibe conteudo diferente dependendo do estado de autenticacao do us
 |--------|-----------|-----------------|
 | **Visitante** | Nao logado | `getSession()` retorna `null` |
 | **Autenticado sem perfil** | Logou via Discord mas nao completou onboarding | Sessao existe, mas `profile` nao existe ou `isOnboardingComplete = false` |
-| **Membro** | Logou e completou onboarding | Sessao existe e `profile.isOnboardingComplete = true` |
-| **Owner/Admin** | Membro com permissoes especiais no contexto | Membro + dono do recurso ou admin da plataforma |
+| **Membro** | Logou e completou onboarding | Sessao existe, `profile.isOnboardingComplete = true` e `profile.role = "member"` |
+| **Moderador** | Membro com role de moderacao | `profile.role = "moderator"` |
+| **Admin** | Administrador da plataforma | `profile.role = "admin"` |
+| **Owner** | Membro dono de um recurso especifico | Membro + dono do projeto/post (independente de role) |
+
+**Nota sobre roles**: o campo `role` na tabela `profile` define permissoes globais na plataforma (`member`, `moderator`, `admin`). O conceito de "Owner" e contextual — refere-se ao dono de um recurso especifico (projeto, post, evento submetido), independente da role global.
 
 ## Implementacao Tecnica
 
@@ -107,11 +111,11 @@ if (!profile || !profile.isOnboardingComplete) {
 
 | Estado | Comportamento |
 |--------|--------------|
-| **Visitante** | Lista de proximos eventos em destaque e eventos passados. Acesso total — eventos sao conteudo publico |
-| **Membro** | Mesma experiencia do visitante (RSVP e funcionalidade futura) |
-| **Admin** | Mesma experiencia + botao "Criar evento" |
+| **Visitante** | Lista de proximos eventos aprovados (`status = approved`) e eventos passados aprovados |
+| **Membro** | Mesma experiencia do visitante + botao "Criar evento" (submete para aprovacao) |
+| **Moderador/Admin** | Veem todos os eventos independente do status, com badge visual indicando `pending`, `approved` ou `rejected`. Fila de eventos pendentes em destaque no topo. Botao "Criar evento" |
 
-**Nota**: eventos sao 100% publicos nesta versao. Nao ha diferenca de conteudo entre visitante e membro autenticado.
+**Nota**: apenas eventos com `status = approved` sao publicos. Eventos `pending` e `rejected` sao visiveis apenas pelo autor e por moderators/admins.
 
 ---
 
@@ -119,9 +123,9 @@ if (!profile || !profile.isOnboardingComplete) {
 
 | Estado | Comportamento |
 |--------|--------------|
-| **Visitante** | Detalhes completos do evento: nome, data, formato, local/link, organizador, banner |
-| **Membro** | Mesma experiencia do visitante |
-| **Admin** | Mesma experiencia + botoes "Editar evento" e "Excluir evento" |
+| **Visitante** | Detalhes completos do evento (somente se `status = approved`). Se nao aprovado, exibe 404 |
+| **Membro** | Se `status = approved`: mesma experiencia do visitante. Se e o autor: ve o evento em qualquer status com indicacao do status atual |
+| **Moderador/Admin** | Ve o evento em qualquer status + botoes "Editar evento", "Excluir evento". Se `status = pending`: botoes "Aprovar" e "Rejeitar" |
 
 ---
 
@@ -131,7 +135,8 @@ if (!profile || !profile.isOnboardingComplete) {
 |--------|--------------|
 | **Visitante** | Redireciona para `/` (a Landing Page) |
 | **Autenticado sem perfil** | Redireciona para `/onboarding` |
-| **Membro** | Feed cronologico com posts BIP e comunicados. Filtro por tipo. Formulario de novo post |
+| **Membro** | Feed cronologico com posts BIP e comunicados. Filtro por tipo. Formulario de novo post (tipo BIP) |
+| **Moderador/Admin** | Mesma experiencia do membro + toggle para criar posts do tipo `announcement` |
 
 **Nota**: o Feed tambem aparece na Home (`/`) para membros autenticados. A rota `/feed` e um atalho direto, util para compartilhar ou bookmarkar.
 
@@ -162,6 +167,6 @@ if (!profile || !profile.isOnboardingComplete) {
 - **`ConditionalContent`**: componente que renderiza conteudo A ou B baseado no estado de auth
 - **`LoginCTA`**: call-to-action padrao para visitantes, com botao de login via Discord
 
-## Pontos em Aberto
+## Decisao Tomada — Sistema de Roles
 
-- **Sistema de admin**: como definir quem e admin? Opcoes: campo `isAdmin` na tabela `profile`, tabela separada de roles, ou lista de IDs no `.env`. Decisao a ser tomada antes de implementar Eventos e Feed (que tem funcionalidades restritas a admins).
+O sistema de permissoes usa o campo `role` na tabela `profile` com tres valores: `member`, `moderator` e `admin`. Ver detalhes em [`01-onboarding-perfil.md`](./funcionalidades/01-onboarding-perfil.md#decisoes-tomadas--sistema-de-roles) e [`schema-banco-de-dados.md`](./schema-banco-de-dados.md#profile-em-profileschemats).

@@ -78,20 +78,21 @@ Todas as fases seguintes dependem do perfil estar implementado, pois `user.id` e
 ### Entregas
 
 - [ ] Criar `events.schema.ts` com tabelas `events` e `event_members`
+- [ ] Adicionar campo `role` na tabela `profile` (sistema de roles: member/moderator/admin)
 - [ ] Gerar e aplicar migration
-- [ ] Definir sistema de admin (como marcar usuarios como admin)
-- [ ] Server functions: CRUD de eventos (admin-only)
+- [ ] Server functions: CRUD de eventos, fluxo de aprovacao (`approveEvent`, `rejectEvent`, `resubmitEvent`)
 - [ ] Validacao Zod com campos condicionais (presencial vs digital)
-- [ ] Rota `/events` com listagem (proximos + passados)
-- [ ] Rota `/events/:id` com pagina individual
-- [ ] Rota `/events/novo` e `/events/:id/editar` (admin-only)
-- [ ] Componentes: EventCard, EventForm, EventFormatBadge
+- [ ] Rota `/events` com listagem (proximos + passados + fila de pendentes para moderators/admins)
+- [ ] Rota `/events/:id` com pagina individual e acesso condicional por status e role
+- [ ] Rota `/events/novo` — acessivel para qualquer membro com perfil completo
+- [ ] Rota `/events/:id/editar` — moderators/admins e autor (se rejeitado)
+- [ ] Rota `/events/:id/revisao` — pagina de revisao para moderators/admins
+- [ ] Componentes: EventCard, EventForm, EventFormatBadge, EventStatusBadge, EventReviewPanel, EventRejectionNotice
 - [ ] Formatacao de datas em pt-BR
 
 ### Dependencias
 
-- Fase 1 (Perfil) — precisa de `user.id` para `createdBy`
-- Sistema de admin definido
+- Fase 1 (Perfil) — precisa de `user.id` para `submittedBy` e `reviewedBy`
 
 ### Nota
 
@@ -121,7 +122,7 @@ A tabela `event_members` e criada nesta fase mas nao e exposta na interface. Fun
 
 - Fase 1 (Perfil) — precisa de `user.id` para `authorId`
 - Fase 2 (Projetos) — para vinculo de post com projeto via `projectId`
-- Sistema de admin — para posts do tipo `announcement`
+- Sistema de roles (Fase 3) — para posts do tipo `announcement` (requer role moderator ou admin)
 
 ---
 
@@ -167,9 +168,18 @@ Funcionalidades planejadas para alem das 5 fases iniciais, sem ordem de priorida
 - Badge de contagem no header
 - Opcoes de preferencia de notificacao
 
+### Sincronizacao de Roles com o Discord
+- Sincronizar automaticamente roles da comunidade no Discord (moderator, admin) com o campo `role` na tabela `profile`
+- Usar a API do Discord para ler roles do servidor e atualizar a plataforma periodicamente ou via webhook
+- Permitir que mudancas de role no Discord sejam refletidas na plataforma sem intervencao manual
+
+### Dashboard Administrativo
+- Interface para gerenciamento de roles de usuarios (atribuir/remover moderator e admin)
+- Visao geral de eventos pendentes de aprovacao
+- Metricas basicas da plataforma (usuarios, projetos, eventos)
+
 ### Integracao com Bot do Discord
-- Notificar no Discord quando: novo projeto publicado, novo evento criado, marcos de BIP
-- Sincronizar roles do Discord com permissoes na plataforma (ex.: role de admin)
+- Notificar no Discord quando: novo projeto publicado, novo evento aprovado, marcos de BIP
 - Comando de bot para consultar perfil/projeto diretamente no Discord
 
 ### Busca Global
@@ -203,6 +213,6 @@ Tarefas que devem ser feitas em paralelo ou entre as fases:
 - [ ] **Responsividade**: garantir que todas as paginas funcionam bem em mobile
 - [ ] **Acessibilidade**: labels, focus management, contraste adequado
 - [ ] **Storage de imagens**: decidir solucao para upload (R2, Uploadthing, ou URL externa)
-- [ ] **Sistema de admin**: definir como identificar admins (campo no profile, env var, ou tabela separada)
+- [x] **Sistema de roles**: decidido — campo `role` na tabela `profile` com valores `member | moderator | admin` (espelhando roles do Discord)
 - [ ] **Geracao de IDs**: definir estrategia (`crypto.randomUUID()` vs `nanoid`)
 - [ ] **Rate limiting**: proteger endpoints de criacao contra abuso

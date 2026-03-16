@@ -16,5 +16,11 @@
       "database_id": "e0bdb541-3d98-4ab4-9568-2e290402f1ca",
       "migrations_dir": "src/lib/db/migrations"
     }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "STORAGE",
+      "bucket_name": "indiehackersbrasil-uploads"
+    }
   ]
 }

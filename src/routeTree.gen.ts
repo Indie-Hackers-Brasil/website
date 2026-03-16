@@ -10,14 +10,24 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PageRouteImport } from './routes/page'
+import { Route as ProjectsPageRouteImport } from './routes/projects/page'
 import { Route as OnboardingPageRouteImport } from './routes/onboarding/page'
 import { Route as ConfiguracoesPageRouteImport } from './routes/configuracoes/page'
 import { Route as UUsernamePageRouteImport } from './routes/u/$username/page'
+import { Route as ProjectsNovoPageRouteImport } from './routes/projects/novo/page'
+import { Route as ProjectsSlugPageRouteImport } from './routes/projects/$slug/page'
+import { Route as ApiUploadsSplatRouteImport } from './routes/api/uploads/$'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as ProjectsSlugEditarPageRouteImport } from './routes/projects/$slug/editar/page'
 
 const PageRoute = PageRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsPageRoute = ProjectsPageRouteImport.update({
+  id: '/projects/',
+  path: '/projects/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OnboardingPageRoute = OnboardingPageRouteImport.update({
@@ -35,9 +45,29 @@ const UUsernamePageRoute = UUsernamePageRouteImport.update({
   path: '/u/$username/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsNovoPageRoute = ProjectsNovoPageRouteImport.update({
+  id: '/projects/novo/',
+  path: '/projects/novo/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsSlugPageRoute = ProjectsSlugPageRouteImport.update({
+  id: '/projects/$slug/',
+  path: '/projects/$slug/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiUploadsSplatRoute = ApiUploadsSplatRouteImport.update({
+  id: '/api/uploads/$',
+  path: '/api/uploads/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsSlugEditarPageRoute = ProjectsSlugEditarPageRouteImport.update({
+  id: '/projects/$slug/editar/',
+  path: '/projects/$slug/editar/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -45,23 +75,38 @@ export interface FileRoutesByFullPath {
   '/': typeof PageRoute
   '/configuracoes/': typeof ConfiguracoesPageRoute
   '/onboarding/': typeof OnboardingPageRoute
+  '/projects/': typeof ProjectsPageRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/uploads/$': typeof ApiUploadsSplatRoute
+  '/projects/$slug/': typeof ProjectsSlugPageRoute
+  '/projects/novo/': typeof ProjectsNovoPageRoute
   '/u/$username/': typeof UUsernamePageRoute
+  '/projects/$slug/editar/': typeof ProjectsSlugEditarPageRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PageRoute
   '/configuracoes': typeof ConfiguracoesPageRoute
   '/onboarding': typeof OnboardingPageRoute
+  '/projects': typeof ProjectsPageRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/uploads/$': typeof ApiUploadsSplatRoute
+  '/projects/$slug': typeof ProjectsSlugPageRoute
+  '/projects/novo': typeof ProjectsNovoPageRoute
   '/u/$username': typeof UUsernamePageRoute
+  '/projects/$slug/editar': typeof ProjectsSlugEditarPageRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof PageRoute
   '/configuracoes/': typeof ConfiguracoesPageRoute
   '/onboarding/': typeof OnboardingPageRoute
+  '/projects/': typeof ProjectsPageRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/uploads/$': typeof ApiUploadsSplatRoute
+  '/projects/$slug/': typeof ProjectsSlugPageRoute
+  '/projects/novo/': typeof ProjectsNovoPageRoute
   '/u/$username/': typeof UUsernamePageRoute
+  '/projects/$slug/editar/': typeof ProjectsSlugEditarPageRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -69,25 +114,50 @@ export interface FileRouteTypes {
     | '/'
     | '/configuracoes/'
     | '/onboarding/'
+    | '/projects/'
     | '/api/auth/$'
+    | '/api/uploads/$'
+    | '/projects/$slug/'
+    | '/projects/novo/'
     | '/u/$username/'
+    | '/projects/$slug/editar/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/configuracoes' | '/onboarding' | '/api/auth/$' | '/u/$username'
+  to:
+    | '/'
+    | '/configuracoes'
+    | '/onboarding'
+    | '/projects'
+    | '/api/auth/$'
+    | '/api/uploads/$'
+    | '/projects/$slug'
+    | '/projects/novo'
+    | '/u/$username'
+    | '/projects/$slug/editar'
   id:
     | '__root__'
     | '/'
     | '/configuracoes/'
     | '/onboarding/'
+    | '/projects/'
     | '/api/auth/$'
+    | '/api/uploads/$'
+    | '/projects/$slug/'
+    | '/projects/novo/'
     | '/u/$username/'
+    | '/projects/$slug/editar/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   PageRoute: typeof PageRoute
   ConfiguracoesPageRoute: typeof ConfiguracoesPageRoute
   OnboardingPageRoute: typeof OnboardingPageRoute
+  ProjectsPageRoute: typeof ProjectsPageRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiUploadsSplatRoute: typeof ApiUploadsSplatRoute
+  ProjectsSlugPageRoute: typeof ProjectsSlugPageRoute
+  ProjectsNovoPageRoute: typeof ProjectsNovoPageRoute
   UUsernamePageRoute: typeof UUsernamePageRoute
+  ProjectsSlugEditarPageRoute: typeof ProjectsSlugEditarPageRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -97,6 +167,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof PageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/': {
+      id: '/projects/'
+      path: '/projects'
+      fullPath: '/projects/'
+      preLoaderRoute: typeof ProjectsPageRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/onboarding/': {
@@ -120,11 +197,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UUsernamePageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/novo/': {
+      id: '/projects/novo/'
+      path: '/projects/novo'
+      fullPath: '/projects/novo/'
+      preLoaderRoute: typeof ProjectsNovoPageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/$slug/': {
+      id: '/projects/$slug/'
+      path: '/projects/$slug'
+      fullPath: '/projects/$slug/'
+      preLoaderRoute: typeof ProjectsSlugPageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/uploads/$': {
+      id: '/api/uploads/$'
+      path: '/api/uploads/$'
+      fullPath: '/api/uploads/$'
+      preLoaderRoute: typeof ApiUploadsSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
       fullPath: '/api/auth/$'
       preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/$slug/editar/': {
+      id: '/projects/$slug/editar/'
+      path: '/projects/$slug/editar'
+      fullPath: '/projects/$slug/editar/'
+      preLoaderRoute: typeof ProjectsSlugEditarPageRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -134,8 +239,13 @@ const rootRouteChildren: RootRouteChildren = {
   PageRoute: PageRoute,
   ConfiguracoesPageRoute: ConfiguracoesPageRoute,
   OnboardingPageRoute: OnboardingPageRoute,
+  ProjectsPageRoute: ProjectsPageRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiUploadsSplatRoute: ApiUploadsSplatRoute,
+  ProjectsSlugPageRoute: ProjectsSlugPageRoute,
+  ProjectsNovoPageRoute: ProjectsNovoPageRoute,
   UUsernamePageRoute: UUsernamePageRoute,
+  ProjectsSlugEditarPageRoute: ProjectsSlugEditarPageRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

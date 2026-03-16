@@ -231,7 +231,24 @@ Dialog para buscar e adicionar contributors por username.
 
 ---
 
-## Pontos em Aberto
+## Decisoes Tomadas
 
-- **Upload de logo**: onde armazenar? Opcoes: Cloudflare R2 (integrado ao ecossistema), servico externo (Uploadthing, Cloudinary), ou apenas URL externa. Decisao afeta tambem o upload de avatar no perfil e banner de eventos.
-- **Tags**: lista pre-definida ou livre? Se livre, como evitar duplicatas e variações? Se pre-definida, qual a lista inicial?
+### Upload de logo: Cloudflare R2
+
+Upload de imagens via **Cloudflare R2**, com utilitario generico reutilizavel para avatar de perfil e banner de eventos.
+
+- Bucket binding `STORAGE` no `wrangler.jsonc`
+- API route `POST /api/uploads/*` para upload e `GET /api/uploads/*` para servir arquivos
+- Limite: 2MB, formatos JPEG/PNG/WebP/SVG
+- Campo `logoUrl` armazena o caminho relativo `/api/uploads/{key}`
+- Categorias de upload: `project-logos`, `avatars`, `event-banners`
+
+### Tags: Lista pre-definida
+
+Tags organizadas por categoria em `src/data/constants/tags.ts`.
+
+- Categorias: **Tecnologia**, **Mercado**, **Modelo de Negocio**
+- Usuarios selecionam de lista fixa (sem free-form)
+- Maximo de 10 tags por projeto
+- Lista inicial focada na comunidade brasileira de indie hackers
+- Arquivo bem comentado para facilitar contribuicoes via Pull Request (repositorio open source)

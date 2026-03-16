@@ -1,5 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import {
+	index,
 	integer,
 	sqliteTable,
 	text,
@@ -29,6 +30,8 @@ export const profile = sqliteTable(
 			.notNull()
 			.default(false),
 
+		role: text("role").notNull().default("member"),
+
 		createdAt: integer("created_at", { mode: "timestamp_ms" })
 			.notNull()
 			.default(sql`(unixepoch() * 1000)`),
@@ -41,6 +44,7 @@ export const profile = sqliteTable(
 	(table) => [
 		uniqueIndex("profile_userId_unique").on(table.userId),
 		uniqueIndex("profile_username_unique").on(table.username),
+		index("profile_role_idx").on(table.role),
 	],
 );
 

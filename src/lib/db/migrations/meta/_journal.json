@@ -29,6 +29,13 @@
       "when": 1773897600000,
       "tag": "0003_add_profile_role",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1773984000000,
+      "tag": "0004_add_events",
+      "breakpoints": true
     }
   ]
 }

@@ -8,7 +8,7 @@ const ALLOWED_TYPES = [
 	"image/webp",
 	"image/svg+xml",
 ];
-const ALLOWED_CATEGORIES = ["project-logos", "avatars", "event-banners"];
+const ALLOWED_CATEGORIES = ["project-logos", "avatars", "event-banners", "post-images"];
 
 export const Route = createFileRoute("/api/uploads/$")({
 	server: {

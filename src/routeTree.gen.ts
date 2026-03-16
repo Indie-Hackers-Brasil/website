@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PageRouteImport } from './routes/page'
 import { Route as ProjectsPageRouteImport } from './routes/projects/page'
 import { Route as OnboardingPageRouteImport } from './routes/onboarding/page'
+import { Route as FeedPageRouteImport } from './routes/feed/page'
 import { Route as EventsPageRouteImport } from './routes/events/page'
 import { Route as ConfiguracoesPageRouteImport } from './routes/configuracoes/page'
 import { Route as UUsernamePageRouteImport } from './routes/u/$username/page'
@@ -38,6 +39,11 @@ const ProjectsPageRoute = ProjectsPageRouteImport.update({
 const OnboardingPageRoute = OnboardingPageRouteImport.update({
   id: '/onboarding/',
   path: '/onboarding/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeedPageRoute = FeedPageRouteImport.update({
+  id: '/feed/',
+  path: '/feed/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventsPageRoute = EventsPageRouteImport.update({
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/': typeof PageRoute
   '/configuracoes/': typeof ConfiguracoesPageRoute
   '/events/': typeof EventsPageRoute
+  '/feed/': typeof FeedPageRoute
   '/onboarding/': typeof OnboardingPageRoute
   '/projects/': typeof ProjectsPageRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -122,6 +129,7 @@ export interface FileRoutesByTo {
   '/': typeof PageRoute
   '/configuracoes': typeof ConfiguracoesPageRoute
   '/events': typeof EventsPageRoute
+  '/feed': typeof FeedPageRoute
   '/onboarding': typeof OnboardingPageRoute
   '/projects': typeof ProjectsPageRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -140,6 +148,7 @@ export interface FileRoutesById {
   '/': typeof PageRoute
   '/configuracoes/': typeof ConfiguracoesPageRoute
   '/events/': typeof EventsPageRoute
+  '/feed/': typeof FeedPageRoute
   '/onboarding/': typeof OnboardingPageRoute
   '/projects/': typeof ProjectsPageRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/'
     | '/configuracoes/'
     | '/events/'
+    | '/feed/'
     | '/onboarding/'
     | '/projects/'
     | '/api/auth/$'
@@ -176,6 +186,7 @@ export interface FileRouteTypes {
     | '/'
     | '/configuracoes'
     | '/events'
+    | '/feed'
     | '/onboarding'
     | '/projects'
     | '/api/auth/$'
@@ -193,6 +204,7 @@ export interface FileRouteTypes {
     | '/'
     | '/configuracoes/'
     | '/events/'
+    | '/feed/'
     | '/onboarding/'
     | '/projects/'
     | '/api/auth/$'
@@ -211,6 +223,7 @@ export interface RootRouteChildren {
   PageRoute: typeof PageRoute
   ConfiguracoesPageRoute: typeof ConfiguracoesPageRoute
   EventsPageRoute: typeof EventsPageRoute
+  FeedPageRoute: typeof FeedPageRoute
   OnboardingPageRoute: typeof OnboardingPageRoute
   ProjectsPageRoute: typeof ProjectsPageRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -246,6 +259,13 @@ declare module '@tanstack/react-router' {
       path: '/onboarding'
       fullPath: '/onboarding/'
       preLoaderRoute: typeof OnboardingPageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/feed/': {
+      id: '/feed/'
+      path: '/feed'
+      fullPath: '/feed/'
+      preLoaderRoute: typeof FeedPageRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/events/': {
@@ -339,6 +359,7 @@ const rootRouteChildren: RootRouteChildren = {
   PageRoute: PageRoute,
   ConfiguracoesPageRoute: ConfiguracoesPageRoute,
   EventsPageRoute: EventsPageRoute,
+  FeedPageRoute: FeedPageRoute,
   OnboardingPageRoute: OnboardingPageRoute,
   ProjectsPageRoute: ProjectsPageRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,

@@ -15,6 +15,13 @@
       "when": 1773612563670,
       "tag": "0001_keen_pandemic",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1773626520028,
+      "tag": "0002_sweet_hardball",
+      "breakpoints": true
     }
   ]
 }

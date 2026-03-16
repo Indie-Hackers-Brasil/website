@@ -1,13 +1,16 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { AtSign, Github, Globe, Linkedin, Pencil, Twitter } from "lucide-react";
+import { AtSign, Github, Globe, Linkedin, Pencil, Plus, Twitter } from "lucide-react";
+import { ProjectCard } from "@/components/project-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { H1, Muted, P } from "@/components/ui/typography";
 import { getProfileByUsername } from "@/data/services/profile";
+import { getProjectsByUserId } from "@/data/services/project";
 import { authClient } from "@/lib/auth/client";
 import { INTEREST_LABELS } from "@/lib/validations/profile";
+import type { PROJECT_CATEGORIES, PROJECT_STATUSES } from "@/lib/validations/project";
 
 export const Route = createFileRoute("/u/$username/")({
 	loader: async ({ params }) => {
@@ -17,7 +20,10 @@ export const Route = createFileRoute("/u/$username/")({
 		if (!profileData) {
 			throw notFound();
 		}
-		return { profile: profileData };
+		const userProjects = await getProjectsByUserId({
+			data: profileData.userId,
+		});
+		return { profile: profileData, projects: userProjects };
 	},
 	component: ProfilePage,
 	notFoundComponent: ProfileNotFound,
@@ -38,7 +44,7 @@ function ProfileNotFound() {
 }
 
 function ProfilePage() {
-	const { profile } = Route.useLoaderData();
+	const { profile, projects } = Route.useLoaderData();
 	const { data: session } = authClient.useSession();
 
 	const isOwnProfile = session?.user?.id === profile.userId;
@@ -141,7 +147,35 @@ function ProfilePage() {
 			<Separator className="my-6" />
 			<div>
 				<Muted className="mb-3">Projetos</Muted>
-				<P className="text-sm text-muted-foreground">Nenhum projeto ainda.</P>
+				{projects.length > 0 ? (
+					<div className="grid gap-4 sm:grid-cols-2">
+						{projects.map((project) => (
+							<ProjectCard
+								key={project.id}
+								slug={project.slug}
+								name={project.name}
+								description={project.description}
+								logoUrl={project.logoUrl}
+								category={project.category as (typeof PROJECT_CATEGORIES)[number]}
+								status={project.status as (typeof PROJECT_STATUSES)[number]}
+							/>
+						))}
+					</div>
+				) : (
+					<div>
+						<P className="text-sm text-muted-foreground">
+							Nenhum projeto ainda.
+						</P>
+						{isOwnProfile && (
+							<Button asChild size="sm" variant="outline" className="mt-2">
+								<Link to="/projects/novo">
+									<Plus className="size-3.5" />
+									Criar projeto
+								</Link>
+							</Button>
+						)}
+					</div>
+				)}
 			</div>
 
 			{!session && (

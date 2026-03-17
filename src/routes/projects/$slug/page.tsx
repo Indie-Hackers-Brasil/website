@@ -54,7 +54,7 @@ export const Route = createFileRoute("/projects/$slug/")({
 
 function ProjectNotFound() {
 	return (
-		<main className="mx-auto w-full max-w-2xl px-4 py-24 text-center">
+		<main className="mx-auto w-full max-w-2xl px-4 py-8 text-center">
 			<H1>Projeto nao encontrado</H1>
 			<P className="text-muted-foreground">
 				O projeto que voce procura nao existe.
@@ -142,7 +142,7 @@ function ProjectDetailPage() {
 	};
 
 	return (
-		<main className="mx-auto w-full max-w-2xl px-4 py-24">
+		<main className="mx-auto w-full max-w-2xl px-4 py-8">
 			<div className="flex items-start gap-6">
 				<Avatar className="size-20 shrink-0">
 					<AvatarImage

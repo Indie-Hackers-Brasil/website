@@ -66,7 +66,7 @@ function ProjectsPage() {
 	const totalPages = Math.ceil(result.total / result.pageSize);
 
 	return (
-		<main className="mx-auto w-full max-w-6xl px-4 py-24">
+		<main className="mx-auto w-full max-w-6xl px-4 py-8">
 			<div className="mb-8 flex items-center justify-between">
 				<div>
 					<H1 className="text-2xl">Projetos</H1>

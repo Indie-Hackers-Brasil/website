@@ -31,7 +31,7 @@ export const Route = createFileRoute("/u/$username/")({
 
 function ProfileNotFound() {
 	return (
-		<main className="mx-auto w-full max-w-2xl px-4 py-24 text-center">
+		<main className="mx-auto w-full max-w-2xl px-4 py-8 text-center">
 			<H1>Perfil nao encontrado</H1>
 			<P className="text-muted-foreground">
 				O usuario que voce procura nao existe.
@@ -82,7 +82,7 @@ function ProfilePage() {
 	);
 
 	return (
-		<main className="mx-auto w-full max-w-2xl px-4 py-24">
+		<main className="mx-auto w-full max-w-2xl px-4 py-8">
 			<div className="flex items-start gap-6">
 				<Avatar className="size-20">
 					<AvatarImage src={profile.avatarUrl ?? undefined} alt={displayName} />

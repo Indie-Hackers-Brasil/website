@@ -54,7 +54,7 @@ export const Route = createFileRoute("/events/$id/")({
 
 function EventNotFound() {
 	return (
-		<main className="mx-auto w-full max-w-2xl px-4 py-24 text-center">
+		<main className="mx-auto w-full max-w-2xl px-4 py-8 text-center">
 			<H1>Evento nao encontrado</H1>
 			<P className="text-muted-foreground">
 				O evento que voce procura nao existe ou nao esta disponivel.
@@ -92,7 +92,7 @@ function EventDetailPage() {
 	};
 
 	return (
-		<main className="mx-auto w-full max-w-2xl px-4 py-24">
+		<main className="mx-auto w-full max-w-2xl px-4 py-8">
 			{event.bannerUrl && (
 				<div className="mb-6 overflow-hidden rounded-lg">
 					<img

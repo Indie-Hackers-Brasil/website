@@ -1,213 +1,147 @@
-Welcome to your new TanStack Start app! 
+# Indie Hacking Brasil
 
-# Getting Started
+[![Cloudflare Workers](https://img.shields.io/badge/Cloudflare%20Workers-F38020?logo=cloudflare&logoColor=white)](https://workers.cloudflare.com/)
+[![React 19](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)](https://react.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-To run this application:
+Plataforma web da comunidade **Indie Hacking Brasil** — complemento ao Discord com perfis públicos, vitrine de projetos, eventos e feed de Build In Public.
+
+## Sobre
+
+O [Indie Hacking Brasil](https://discord.gg/indiehackersbrasil) é uma comunidade brasileira com mais de 12 mil membros no Discord, reunindo pessoas que estão construindo seus próprios produtos digitais — Apps, SaaS, Micro-SaaS e Startups.
+
+Esta plataforma serve como **complemento ao Discord**, oferecendo:
+
+- **Perfis públicos** permanentes e indexáveis
+- **Vitrine de projetos** com sistema de membros (owner/contributor)
+- **Eventos** da comunidade com fluxo de aprovação
+- **Feed de Build In Public** com atualizações cronológicas dos projetos
+- **Funcionalidades sociais** (seguir, recomendar, comentar) — em breve
+
+## Stack Técnica
+
+| Tecnologia | Uso |
+|---|---|
+| [TanStack Start](https://tanstack.com/start) | Framework full-stack (React 19 + Vite 7) |
+| [Cloudflare Workers](https://workers.cloudflare.com/) | Runtime edge (deploy + hosting) |
+| [Cloudflare D1](https://developers.cloudflare.com/d1/) | Banco de dados SQLite no edge |
+| [Cloudflare R2](https://developers.cloudflare.com/r2/) | Storage de arquivos (uploads) |
+| [Drizzle ORM](https://orm.drizzle.team/) | ORM para SQLite/D1 |
+| [Better-Auth](https://better-auth.com/) | Autenticação (Discord OAuth) |
+| [Tailwind CSS 4](https://tailwindcss.com/) | Estilização |
+| [shadcn/ui](https://ui.shadcn.com/) | Componentes de UI (30+) |
+| [Biome](https://biomejs.dev/) | Linting e formatação |
+| [Vitest](https://vitest.dev/) | Testes |
+| [Bun](https://bun.sh/) | Package manager e runtime |
+
+## Como Rodar Localmente
+
+### Pré-requisitos
+
+- [Bun](https://bun.sh/) instalado
+- [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/) (`bun install -g wrangler`)
+- Uma [aplicação Discord](https://discord.com/developers/applications) configurada com OAuth2
+
+### Setup
+
+1. **Clone o repositório**
+
+```bash
+git clone https://github.com/Indie-Hackers-Brasil/website.git
+cd website
+```
+
+2. **Instale as dependências**
 
 ```bash
 bun install
-bun --bun run dev
 ```
 
-# Building For Production
-
-To build this application for production:
+3. **Configure as variáveis de ambiente**
 
 ```bash
-bun --bun run build
+cp .env.example .env
 ```
 
-## Testing
+Preencha o `.env` com suas credenciais:
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+- `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_DATABASE_ID`, `CLOUDFLARE_D1_TOKEN` — para migrations remotas (opcional para dev local)
+- `BETTER_AUTH_SECRET` — string aleatória com 32+ caracteres
+- `BETTER_AUTH_URL` — `http://localhost:3000`
+- `DISCORD_CLIENT_ID`, `DISCORD_CLIENT_SECRET` — da sua aplicação Discord
+
+4. **Configure o banco de dados local**
 
 ```bash
-bun --bun run test
+bun run db:local
 ```
 
-## Styling
-
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
-
-### Removing Tailwind CSS
-
-If you prefer not to use Tailwind CSS:
-
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `bun install @tailwindcss/vite tailwindcss -D`
-
-## Linting & Formatting
-
-This project uses [Biome](https://biomejs.dev/) for linting and formatting. The following scripts are available:
-
+5. **Rode o servidor de desenvolvimento**
 
 ```bash
-bun --bun run lint
-bun --bun run format
-bun --bun run check
+bun run dev
 ```
 
+A aplicação estará disponível em `http://localhost:3000`.
 
-## Shadcn
+## Scripts Disponíveis
 
-Add components using the latest version of [Shadcn](https://ui.shadcn.com/).
+| Script | Descrição |
+|---|---|
+| `bun run dev` | Servidor de desenvolvimento (porta 3000) |
+| `bun run build` | Build para produção |
+| `bun run preview` | Preview do build de produção |
+| `bun run deploy` | Build + deploy para Cloudflare Workers |
+| `bun run test` | Rodar testes com Vitest |
+| `bun run lint` | Verificar código com Biome |
+| `bun run format` | Formatar código com Biome |
+| `bun run check` | Lint + format com Biome |
+| `bun run db:generate` | Gerar migrations do Drizzle |
+| `bun run db:migrate` | Aplicar migrations (remoto) |
+| `bun run db:studio` | Abrir Drizzle Studio (UI do banco) |
+| `bun run db:local` | Aplicar migrations no D1 local |
 
-```bash
-pnpm dlx shadcn@latest add button
+## Estrutura do Projeto
+
+```
+src/
+├── components/        # Componentes React (UI + custom)
+│   └── ui/            # Componentes shadcn/ui
+├── data/
+│   ├── constants/     # Variáveis de ambiente, config do site, tags
+│   └── services/      # Lógica de negócio (server functions)
+├── docs/              # Documentação interna do projeto
+│   └── funcionalidades/  # Specs detalhadas por feature
+├── lib/
+│   ├── auth/          # Configuração do Better-Auth
+│   ├── db/            # Drizzle ORM (schemas + migrations)
+│   └── validations/   # Schemas Zod para validação
+├── routes/            # Rotas (file-based routing do TanStack)
+├── router.tsx         # Configuração do router
+└── styles.css         # Estilos globais + variáveis CSS
 ```
 
+## Documentação
 
+Para entender a arquitetura, decisões de produto e especificações detalhadas, consulte a documentação em [`src/docs/`](./src/docs/):
 
-## Routing
+| Documento | Descrição |
+|---|---|
+| [Visão Geral](./src/docs/visao-geral.md) | Propósito, público-alvo e princípios da plataforma |
+| [Stack Técnica](./src/docs/stack-tecnica.md) | Detalhes da stack, convenções e padrões de código |
+| [Schema do Banco](./src/docs/schema-banco-de-dados.md) | Estrutura completa do banco de dados |
+| [Conteúdo Condicional](./src/docs/conteudo-condicional.md) | Lógica de exibição por estado de autenticação |
+| [Roadmap](./src/docs/roadmap.md) | Fases de desenvolvimento e progresso atual |
+| [Funcionalidades](./src/docs/funcionalidades/) | Especificações detalhadas de cada feature |
 
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
+## Como Contribuir
 
-### Adding A Route
+Contribuições são muito bem-vindas! Leia o [guia de contribuição](./CONTRIBUTING.md) para saber como participar.
 
-To add a new route to your application just add a new file in the `./src/routes` directory.
+## Licença
 
-TanStack will automatically generate the content of the route file for you.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
 
-Now that you have two routes you can use a `Link` component to navigate between them.
+## Comunidade
 
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
-```
-
-Then anywhere in your JSX you can use it like so:
-
-```tsx
-<Link to="/about">About</Link>
-```
-
-This will create a link that will navigate to the `/about` route.
-
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
-
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-})
-```
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from '@tanstack/react-start'
-
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString()
-})
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('')
-  
-  useEffect(() => {
-    getServerTime().then(setTime)
-  }, [])
-  
-  return <div>Server time: {time}</div>
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { json } from '@tanstack/react-start'
-
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-})
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people')
-    return response.json()
-  },
-  component: PeopleComponent,
-})
-
-function PeopleComponent() {
-  const data = Route.useLoaderData()
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+- [Discord](https://discord.gg/indiehackersbrasil) — Junte-se a mais de 12 mil indie hackers brasileiros

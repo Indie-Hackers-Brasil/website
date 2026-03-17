@@ -70,7 +70,7 @@ function EventReviewPage() {
 	};
 
 	return (
-		<main className="mx-auto w-full max-w-2xl px-4 py-24">
+		<main className="mx-auto w-full max-w-2xl px-4 py-8">
 			<div className="mb-6">
 				<Muted className="mb-2">Revisao de evento</Muted>
 				<H1 className="text-2xl">Revisar: {event.name}</H1>

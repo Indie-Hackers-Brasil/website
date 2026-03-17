@@ -52,7 +52,7 @@ function FeedPage() {
 	}));
 
 	return (
-		<main className="mx-auto w-full max-w-2xl px-4 py-24">
+		<main className="mx-auto w-full max-w-2xl px-4 py-8">
 			<H1 className="mb-6 text-2xl">Feed</H1>
 
 			<div className="space-y-6">

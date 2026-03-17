@@ -81,7 +81,7 @@ function HomePage() {
 
 	if (isPending) {
 		return (
-			<main className="mx-auto w-full max-w-6xl px-4 py-24">
+			<main className="mx-auto w-full max-w-6xl px-4 py-8">
 				<div className="space-y-4">
 					<Skeleton className="h-12 w-64" />
 					<Skeleton className="h-6 w-96" />
@@ -97,13 +97,11 @@ function HomePage() {
 
 	if (!session || !userProfile || !feedResult) {
 		return (
-			<main className="mx-auto w-full max-w-6xl px-4 py-24">
-				<LandingPage
-					projects={projectsResult.projects}
-					events={upcomingEvents}
-					stats={stats}
-				/>
-			</main>
+			<LandingPage
+				projects={projectsResult.projects}
+				events={upcomingEvents}
+				stats={stats}
+			/>
 		);
 	}
 
@@ -115,7 +113,7 @@ function HomePage() {
 	}));
 
 	return (
-		<main className="mx-auto w-full max-w-2xl px-4 py-24">
+		<main className="mx-auto w-full max-w-2xl px-4 py-8">
 			<div className="space-y-6">
 				<CreatePostForm
 					userProfile={{

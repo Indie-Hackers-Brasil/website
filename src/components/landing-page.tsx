@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import {
+	ArrowRight,
 	Calendar,
 	Code,
 	LogIn,
@@ -9,7 +10,7 @@ import {
 import { EventCard } from "@/components/event-card";
 import { ProjectCard } from "@/components/project-card";
 import { Button } from "@/components/ui/button";
-import { H1, H2, P } from "@/components/ui/typography";
+import { H2, P } from "@/components/ui/typography";
 import { SITE } from "@/data/constants";
 import { authClient } from "@/lib/auth/client";
 import type { EVENT_FORMATS } from "@/lib/validations/event";
@@ -52,66 +53,72 @@ export function LandingPage({ projects, events, stats }: LandingPageProps) {
 	};
 
 	return (
-		<div className="space-y-16">
-			{/* Hero */}
-			<section className="text-center">
-				<H1 className="text-4xl sm:text-5xl">Indie Hacking Brasil</H1>
-				<P className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-					Comunidade brasileira com mais de 12 mil membros construindo
-					produtos digitais — Apps, SaaS, Micro-SaaS e Startups. Networking,
-					troca de conhecimento e Build In Public.
-				</P>
-				<div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-					<Button size="lg" onClick={handleSignIn}>
-						<LogIn className="size-4" />
-						Entrar com Discord
-					</Button>
-					<Button variant="outline" size="lg" asChild>
-						<a
-							href="https://discord.gg/indiehackersbrasil"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							Conhecer a comunidade
-						</a>
-					</Button>
-				</div>
-			</section>
+		<div>
+			{/* Hero Banner */}
+			<section className="relative overflow-hidden border-b bg-gradient-to-br from-primary/10 via-background to-primary/5 py-16 sm:py-24">
+				<div className="mx-auto w-full max-w-6xl px-4 text-center">
+					<h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+						Construa em publico.
+						<br />
+						<span className="text-primary">Cresça junto.</span>
+					</h1>
+					<P className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+						Comunidade brasileira com mais de 12 mil membros construindo
+						produtos digitais — Apps, SaaS, Micro-SaaS e Startups.
+					</P>
+					<div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+						<Button size="lg" onClick={handleSignIn}>
+							<LogIn className="size-4" />
+							Entrar com Discord
+						</Button>
+						<Button variant="outline" size="lg" asChild>
+							<a
+								href="https://discord.gg/indiehackersbrasil"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Conhecer a comunidade
+							</a>
+						</Button>
+					</div>
 
-			{/* Community numbers */}
-			<section>
-				<div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-					<div className="flex flex-col items-center rounded-lg border p-6">
-						<Users className="mb-2 size-8 text-muted-foreground" />
-						<span className="text-3xl font-bold">{stats.members}</span>
-						<span className="text-sm text-muted-foreground">
-							Membros
-						</span>
-					</div>
-					<div className="flex flex-col items-center rounded-lg border p-6">
-						<Rocket className="mb-2 size-8 text-muted-foreground" />
-						<span className="text-3xl font-bold">{stats.projects}</span>
-						<span className="text-sm text-muted-foreground">
-							Projetos
-						</span>
-					</div>
-					<div className="flex flex-col items-center rounded-lg border p-6">
-						<Calendar className="mb-2 size-8 text-muted-foreground" />
-						<span className="text-3xl font-bold">{stats.events}</span>
-						<span className="text-sm text-muted-foreground">
-							Eventos
-						</span>
+					{/* Mini stats inline */}
+					<div className="mt-10 flex flex-wrap items-center justify-center gap-8 text-sm text-muted-foreground">
+						<div className="flex items-center gap-1.5">
+							<Users className="size-4" />
+							<span className="font-semibold text-foreground">
+								{stats.members}
+							</span>
+							membros
+						</div>
+						<div className="flex items-center gap-1.5">
+							<Rocket className="size-4" />
+							<span className="font-semibold text-foreground">
+								{stats.projects}
+							</span>
+							projetos
+						</div>
+						<div className="flex items-center gap-1.5">
+							<Calendar className="size-4" />
+							<span className="font-semibold text-foreground">
+								{stats.events}
+							</span>
+							eventos
+						</div>
 					</div>
 				</div>
 			</section>
 
 			{/* Featured projects */}
 			{projects.length > 0 && (
-				<section>
+				<section className="mx-auto w-full max-w-6xl px-4 py-12">
 					<div className="mb-6 flex items-center justify-between">
-						<H2 className="text-xl">Projetos em destaque</H2>
+						<H2 className="text-xl">Ultimos projetos</H2>
 						<Button variant="ghost" size="sm" asChild>
-							<Link to="/projects">Ver todos</Link>
+							<Link to="/projects">
+								Ver todos
+								<ArrowRight className="size-4" />
+							</Link>
 						</Button>
 					</div>
 					<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -134,13 +141,43 @@ export function LandingPage({ projects, events, stats }: LandingPageProps) {
 				</section>
 			)}
 
+			{/* Discord CTA */}
+			<section className="border-y bg-muted/30 py-12">
+				<div className="mx-auto w-full max-w-6xl px-4 text-center">
+					<Code className="mx-auto mb-3 size-10 text-primary" />
+					<H2 className="text-xl">Junte-se ao Indie Hacking Brasil</H2>
+					<P className="mx-auto mt-2 max-w-lg text-muted-foreground">
+						Faca parte de uma comunidade ativa de indie hackers brasileiros.
+						Compartilhe seus projetos, receba feedback e construa em publico.
+					</P>
+					<div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+						<Button size="lg" onClick={handleSignIn}>
+							<LogIn className="size-4" />
+							Entrar com Discord
+						</Button>
+						<Button variant="outline" size="lg" asChild>
+							<a
+								href="https://discord.gg/indiehackersbrasil"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Acessar o servidor
+							</a>
+						</Button>
+					</div>
+				</div>
+			</section>
+
 			{/* Upcoming events */}
 			{events.length > 0 && (
-				<section>
+				<section className="mx-auto w-full max-w-6xl px-4 py-12">
 					<div className="mb-6 flex items-center justify-between">
 						<H2 className="text-xl">Proximos eventos</H2>
 						<Button variant="ghost" size="sm" asChild>
-							<Link to="/events">Ver todos</Link>
+							<Link to="/events">
+								Ver todos
+								<ArrowRight className="size-4" />
+							</Link>
 						</Button>
 					</div>
 					<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -160,20 +197,6 @@ export function LandingPage({ projects, events, stats }: LandingPageProps) {
 					</div>
 				</section>
 			)}
-
-			{/* Discord CTA */}
-			<section className="rounded-lg border bg-muted/50 p-8 text-center">
-				<Code className="mx-auto mb-3 size-10 text-muted-foreground" />
-				<H2 className="text-xl">Junte-se ao Indie Hacking Brasil</H2>
-				<P className="mx-auto mt-2 max-w-lg text-muted-foreground">
-					Faca parte de uma comunidade ativa de indie hackers brasileiros.
-					Compartilhe seus projetos, receba feedback e construa em publico.
-				</P>
-				<Button size="lg" className="mt-6" onClick={handleSignIn}>
-					<LogIn className="size-4" />
-					Entrar com Discord
-				</Button>
-			</section>
 		</div>
 	);
 }

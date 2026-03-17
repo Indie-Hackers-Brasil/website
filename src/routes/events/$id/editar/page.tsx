@@ -52,7 +52,7 @@ function EditEventPage() {
 	const canSetPartner = userRole === "moderator" || userRole === "admin";
 
 	return (
-		<main className="mx-auto w-full max-w-xl px-4 py-24">
+		<main className="mx-auto w-full max-w-xl px-4 py-8">
 			<div className="mb-8 text-center">
 				<H1>Editar evento</H1>
 				<P className="text-muted-foreground">
